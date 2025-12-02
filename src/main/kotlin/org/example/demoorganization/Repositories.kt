@@ -53,7 +53,7 @@ class BaseRepositoryImpl<T : BaseEntity>(
 
 @Repository
 interface OrganizationRepository : BaseRepository<Organization> {
-    fun existsbyNameAndDeletedFalse(name: String): Boolean
+    fun existsByNameAndDeletedFalse(name: String): Boolean
 }
 
 @Repository

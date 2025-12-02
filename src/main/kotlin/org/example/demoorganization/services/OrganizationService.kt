@@ -34,7 +34,7 @@ class OrganizationServiceImpl(
             repository.findByIdAndDeletedFalse(it)
                 ?: throw OrganizationNotFoundException()
         }
-        repository.existsbyNameAndDeletedFalse(dto.name)?.let {
+        repository.existsByNameAndDeletedFalse(dto.name)?.let {
             throw OrganizationNameAlreadyExistsException()
         } ?: run {
             val organization = mapper.toEntity(dto,region,parent)
@@ -48,7 +48,7 @@ class OrganizationServiceImpl(
 
         dto.name?.let { newName ->
             if (newName != existingOrganization.name) {
-                repository.existsbyNameAndDeletedFalse(newName)?.let {
+                repository.existsByNameAndDeletedFalse(newName)?.let {
                     throw OrganizationNameAlreadyExistsException()
                 }
                 existingOrganization.name = newName

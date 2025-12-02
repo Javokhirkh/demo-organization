@@ -91,7 +91,7 @@ data class Employee(
     @Column(name = "last_name", nullable = false, length = 100)
     var lastName: String,
 
-    @Column(nullable = false, unique = true, length = 14)
+    @Column(nullable = false, length = 14)
     var pinfl: String,
 
     @Column(name = "hire_date", nullable = false)
@@ -122,7 +122,7 @@ data class CalculationTable(
     @Column(nullable = false, precision = 12, scale = 2)
     var amount: BigDecimal,
 
-    @Column(name = "work_rate", nullable = false, precision = 4, scale = 2)
+    @Column(name = "work_rate", nullable = false)
     var workRate: Float,
 
     @Column( nullable = false)

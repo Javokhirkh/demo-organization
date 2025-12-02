@@ -6,7 +6,6 @@ import org.example.demoorganization.EmployeeNotFoundException
 import org.example.demoorganization.EmployeeRepository
 import org.example.demoorganization.OrganizationNotFoundException
 import org.example.demoorganization.OrganizationRepository
-import org.example.demoorganization.PnfnAlreadyExistsException
 import org.example.demoorganization.dtos.CreateEmployeeRequest
 import org.example.demoorganization.dtos.EmployeeFullResponse
 import org.example.demoorganization.dtos.EmployeeShortResponse
@@ -30,9 +29,6 @@ class EmployeeServiceImpl(
     override fun create(dto: CreateEmployeeRequest) {
         val org=orgRepository.findByIdAndDeletedFalse(dto.organizationId)
             ?:throw OrganizationNotFoundException()
-        repository.existsByPinflAndDeletedFalse(dto.pinfl)?.let {
-            throw PnfnAlreadyExistsException()
-        }
         val employee: Employee = mapper.toEntity(dto,org)
         repository.save(employee)
     }
@@ -41,19 +37,13 @@ class EmployeeServiceImpl(
         val existingEmployee = repository.findByIdAndDeletedFalse(id)
             ?: throw EmployeeNotFoundException()
 
-        dto.pinfl?.let { newPinfl ->
-            if (newPinfl != existingEmployee.pinfl) {
-                repository.existsByPinflAndDeletedFalse(newPinfl)?.let {
-                    throw PnfnAlreadyExistsException()
-                }
-            }
-        }
 
         existingEmployee.apply {
             firstName=dto.firstName?:firstName
             lastName = dto.lastName ?: lastName
             pinfl = dto.pinfl ?: pinfl
             hireDate=dto.hireDate?:hireDate
+            pinfl=dto.pinfl?:pinfl
         }
 
         repository.save(existingEmployee)

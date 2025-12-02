@@ -144,9 +144,6 @@ class OrganizationNameAlreadyExistsException() : OrganizationAppException() {
 class OrganizationNotFoundException() : OrganizationAppException() {
     override fun errorType() = ErrorCode.ORGANIZATION_NOT_FOUND
 }
-class PnfnAlreadyExistsException() : OrganizationAppException() {
-    override fun errorType() = ErrorCode.PNFL_ALREADY_EXISTS
-}
 class EmployeeNotFoundException() : OrganizationAppException() {
     override fun errorType() = ErrorCode.EMPLOYEE_NOT_FOUND
 }
